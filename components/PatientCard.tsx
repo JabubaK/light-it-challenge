@@ -1,9 +1,7 @@
 "use client";
 import { Patient } from "@/types/patient";
 import {
-  ArrowDown,
   ChevronUpCircle,
-  ChevronUpCircleIcon,
   CircleChevronDown,
   Pen,
 } from "lucide-react";
