@@ -1,4 +1,5 @@
 import { getPatients } from "@/api/patient";
+import AddButton from "@/components/AddButton";
 import PatientsClient from "@/components/PatientsClient";
 import { Patient } from "@/types/patient";
 import toast from "react-hot-toast";
@@ -14,7 +15,6 @@ export default async function Home() {
 
   return (
     <section className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Lista de Pacientes</h1>
       <PatientsClient initialPatients={initialPatients} />
     </section>
   );

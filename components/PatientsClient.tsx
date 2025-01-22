@@ -1,8 +1,10 @@
 "use client";
-
 import { useState } from "react";
 import { Patient } from "@/types/patient";
 import PatientList from "@/components/PatientList";
+import Modal from "@/components/Modal";
+import PatientForm from "@/components/PatientForm";
+import { Plus } from "lucide-react";
 
 interface PatientsClientProps {
   initialPatients: Patient[];
@@ -13,45 +15,74 @@ export default function PatientsClient({
 }: PatientsClientProps) {
   const [patients, setPatients] = useState<Patient[]>(initialPatients);
 
-  const handleAddPatient = () => {
-    const newPatient: Patient = {
-      id: Math.random().toString(),
-      name: "Nuevo Paciente",
-      avatar: "",
-      createdAt: new Date(),
-      description: "",
-    };
-    setPatients((previousPatients) => [...previousPatients, newPatient]);
+  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMode, setModalMode] = useState<"add" | "edit">("add");
+  const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
+
+  const openAddModal = () => {
+    setModalMode("add");
+    setSelectedPatient(null);
+    setIsModalOpen(true);
   };
 
-  const handleEditPatient = (id: string) => {
-    setPatients((prev) =>
-      prev.map((patient) =>
-        patient.id === id
-          ? { ...patient, name: "Paciente Editado" }
-          : patient
-      )
-    );
+  const openEditModal = (patient: Patient) => {
+    setModalMode("edit");
+    setSelectedPatient(patient);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  
+  const handleFormSubmit = (formData: Omit<Patient, "id" | "createdAt">) => {
+    if (modalMode === "add") {
+      const newPatient: Patient = {
+        id: Math.random().toString(),
+        createdAt: new Date(),
+        ...formData,
+      };
+      setPatients((prev) => [...prev, newPatient]);
+    } else {
+      if (!selectedPatient) return;
+
+      setPatients((prev) =>
+        prev.map((p) =>
+          p.id === selectedPatient.id
+            ? {
+                ...p,
+                ...formData,
+              }
+            : p
+        )
+      );
+    }
+    closeModal();
   };
 
   return (
-    <div>
-      <div className="flex space-x-2 mb-4">
+    <div className="p-4">
+      <header className="flex items-center justify-between mb-4">
+        <h1 className="text-xl font-bold">Patient List</h1>
         <button
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-          onClick={handleAddPatient}
+          className="bg-blue-600 text-white px-4 py-2 rounded flex items-center"
+          onClick={openAddModal}
         >
-          Agregar Paciente
+          <Plus className="h-4 w-4 mr-2" /> Add Patient
         </button>
-        <button
-          className="bg-orange-500 text-white px-4 py-2 rounded"
-          onClick={() => handleEditPatient(patients[0]?.id || "")}
-        >
-          Editar el primer Paciente
-        </button>
-      </div>
+      </header>
 
-      <PatientList patients={patients} />
+      <PatientList patients={patients} onEdit={openEditModal} />
+
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+        <PatientForm
+          mode={modalMode}
+          initialPatient={selectedPatient}
+          onSubmit={handleFormSubmit}
+        />
+      </Modal>
     </div>
   );
 }
