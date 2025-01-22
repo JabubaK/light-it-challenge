@@ -64,16 +64,16 @@ export default function PatientsClient({
   };
 
   return (
-    <div className="p-4 px-8">
+    <div className="p-4 px-2 sm:px-8">
       <header className="flex items-center justify-between mb-4">
         <h1 className="text-xl font-semibold text-gray-600">
           Total Patients ({patients.length})
         </h1>
         <button
-          className="bg-blue-700 text-white px-4 py-2 rounded flex items-center"
+          className="bg-blue-700 text-white px-2 sm:px-4 py-2 rounded flex items-center"
           onClick={openAddModal}
         >
-          <Plus className="h-4 w-4 mr-2" /> Add Patient
+          <Plus className="h-4 w-4" /><span className="ml-2 hidden sm:block">Add Patient</span> 
         </button>
       </header>
 

@@ -38,7 +38,7 @@ export default function PatientCard({ patient, onEdit }: PatientCardProps) {
           <div className="flex items-center space-x-4">
             <div>
               <h3 className="font-semibold">{patient.name}</h3>
-              <div className="text-sm text-gray-500 flex space-x-2">
+              <div className="text-xs text-gray-500 flex space-x-2">
                 <p>Created at</p>
                 <span>
                 {format(new Date(patient.createdAt), "dd-MMM-yyyy")}
