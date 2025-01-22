@@ -2,3 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --font-poppins: "Poppins", sans-serif;
+  --background: #f0f8ff;
+  --foreground: #171717;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-poppins);
+}

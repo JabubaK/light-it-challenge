@@ -5,6 +5,7 @@ import PatientList from "@/components/PatientList";
 import Modal from "@/components/Modal";
 import PatientForm from "@/components/PatientForm";
 import { Plus } from "lucide-react";
+import toast from "react-hot-toast";
 
 interface PatientsClientProps {
   initialPatients: Patient[];
@@ -15,7 +16,6 @@ export default function PatientsClient({
 }: PatientsClientProps) {
   const [patients, setPatients] = useState<Patient[]>(initialPatients);
 
-  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState<"add" | "edit">("add");
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
@@ -36,7 +36,6 @@ export default function PatientsClient({
     setIsModalOpen(false);
   };
 
-  
   const handleFormSubmit = (formData: Omit<Patient, "id" | "createdAt">) => {
     if (modalMode === "add") {
       const newPatient: Patient = {
@@ -44,7 +43,8 @@ export default function PatientsClient({
         createdAt: new Date(),
         ...formData,
       };
-      setPatients((prev) => [...prev, newPatient]);
+      setPatients((prev) => [newPatient, ...prev]);
+      toast.success("New patient added.");
     } else {
       if (!selectedPatient) return;
 
@@ -58,6 +58,7 @@ export default function PatientsClient({
             : p
         )
       );
+      toast.success("Patient edited.");
     }
     closeModal();
   };
@@ -65,9 +66,11 @@ export default function PatientsClient({
   return (
     <div className="p-4">
       <header className="flex items-center justify-between mb-4">
-        <h1 className="text-xl font-bold">Patient List</h1>
+        <h1 className="text-xl font-semibold text-gray-600">
+          Total Patients ({patients.length})
+        </h1>
         <button
-          className="bg-blue-600 text-white px-4 py-2 rounded flex items-center"
+          className="bg-blue-700 text-white px-4 py-2 rounded flex items-center"
           onClick={openAddModal}
         >
           <Plus className="h-4 w-4 mr-2" /> Add Patient

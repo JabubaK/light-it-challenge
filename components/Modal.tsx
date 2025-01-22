@@ -16,9 +16,9 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
       <div className="bg-white p-4 rounded shadow-md w-full max-w-md mx-auto relative">
         <button
           onClick={onClose}
-          className="absolute top-2 right-2 text-red-500 font-bold"
+          className="absolute top-4 right-2 bg-red-400 p-2 rounded"
         >
-          <X />
+          <X className=" h-4 w-4 text-white " />
         </button>
         {children}
       </div>

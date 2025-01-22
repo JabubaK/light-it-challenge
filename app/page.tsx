@@ -1,5 +1,4 @@
 import { getPatients } from "@/api/patient";
-import AddButton from "@/components/AddButton";
 import PatientsClient from "@/components/PatientsClient";
 import { Patient } from "@/types/patient";
 import toast from "react-hot-toast";

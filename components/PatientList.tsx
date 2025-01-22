@@ -9,7 +9,7 @@ interface PatientListProps {
 
 export default function PatientList({ patients, onEdit }: PatientListProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="flex flex-col space-y-2">
       {patients.map((patient) => (
         <PatientCard key={patient.id} patient={patient} onEdit={onEdit} />
       ))}

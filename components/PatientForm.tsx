@@ -4,7 +4,7 @@ import { Patient } from "@/types/patient";
 
 interface PatientFormProps {
   mode: "add" | "edit";
-  initialPatient: Patient | null; 
+  initialPatient: Patient | null;
   onSubmit: (data: Omit<Patient, "id" | "createdAt">) => void;
 }
 
@@ -39,13 +39,13 @@ export default function PatientForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col space-y-3">
+    <form onSubmit={handleSubmit} className="flex flex-col space-y-3 p-4">
       <h2 className="text-xl font-bold mb-2">
-        {mode === "add" ? "Agregar Paciente" : "Editar Paciente"}
+        {mode === "add" ? "Add Patient" : "Edit Patient"}
       </h2>
 
       <label>
-        Nombre:
+        Name
         <input
           type="text"
           className="border p-1 w-full"
@@ -54,27 +54,31 @@ export default function PatientForm({
           required
         />
       </label>
+      {mode == "edit" && (
+        <label>
+          Avatar (URL)
+          <input
+            type="url"
+            className="border p-1 w-full"
+            value={avatar}
+            onChange={(e) => setAvatar(e.target.value)}
+          />
+        </label>
+      )}
 
       <label>
-        Avatar (URL):
-        <input
-          type="url"
-          className="border p-1 w-full"
-          value={avatar}
-          onChange={(e) => setAvatar(e.target.value)}
-        />
-      </label>
-
-      <label>
-        Descripción:
+        Description
         <textarea
-          className="border p-1 w-full"
+          className="border resize-none h-28 p-1 w-full"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
       </label>
 
-      <button type="submit" className="bg-blue-500 text-white py-1 px-2 rounded">
+      <button
+        type="submit"
+        className="bg-blue-700 text-white py-1 px-2 rounded"
+      >
         {mode === "add" ? "Agregar" : "Guardar Cambios"}
       </button>
     </form>
