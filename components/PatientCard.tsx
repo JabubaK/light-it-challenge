@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import { format } from "date-fns";
 
 interface PatientCardProps {
   patient: Patient;
@@ -40,9 +41,7 @@ export default function PatientCard({ patient, onEdit }: PatientCardProps) {
               <div className="text-sm text-gray-500 flex space-x-2">
                 <p>Created at</p>
                 <span>
-                  {patient.createdAt instanceof Date
-                    ? patient.createdAt.toLocaleDateString()
-                    : String(patient.createdAt)}
+                {format(new Date(patient.createdAt), "dd-MMM-yyyy")}
                 </span>
               </div>
               <button

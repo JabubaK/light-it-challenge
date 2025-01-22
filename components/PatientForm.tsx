@@ -79,7 +79,7 @@ export default function PatientForm({
         type="submit"
         className="bg-blue-700 text-white py-1 px-2 rounded"
       >
-        {mode === "add" ? "Agregar" : "Guardar Cambios"}
+        {mode === "add" ? "Add" : "Save"}
       </button>
     </form>
   );

@@ -64,7 +64,7 @@ export default function PatientsClient({
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 px-8">
       <header className="flex items-center justify-between mb-4">
         <h1 className="text-xl font-semibold text-gray-600">
           Total Patients ({patients.length})
